@@ -1,6 +1,11 @@
 from astrbot.api.event import filter, AstrMessageEvent, MessageEventResult
 from astrbot.api.star import Context, Star, register
 from astrbot.api import logger
+from bs4 import BeautifulSoup
+import aiohttp
+import astrbot.api.message_components as Comp
+# import urllib
+from urllib.parse import quote
 
 
 class UmaPlugins(Star):
@@ -20,6 +25,25 @@ class UmaPlugins(Star):
         message_chain = event.get_messages() # 用户所发的消息的消息链 # from astrbot.api.message_components import *
         logger.info(message_chain)
         yield event.plain_result(f"Hello, {user_name}, 你发了 {message_str}!") # 发送一条纯文本消息
+
+    @filter.command("skill")
+    async def query_skill(self, event: AstrMessageEvent):
+        message_str = event.message_str
+        params = message_str.split(" ")
+        if len(params) != 2:
+            yield event.plain_result("查询技能失败  参数格式不正确  应为/skill skill_name")
+        skill_name = params[-1]
+        chain = []
+        url = "https://wiki.biligame.com/umamusume/" + quote(f"简/{skill_name}")
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as resp:
+                web = await resp.content.read()
+                context = BeautifulSoup(web)
+                cards = context.find_all(style="position:relative;width:100px;margin:3px;")
+                for card in cards:
+                    card_img = card.contents[0].contents[0]
+                    chain.append(Comp.Image.fromURL(card_img.attrs.get("src")))
+        yield event.chain_result(chain)
 
     async def terminate(self):
         """可选择实现异步的插件销毁方法，当插件被卸载/停用时会调用。"""
