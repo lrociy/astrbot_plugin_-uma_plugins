@@ -4,6 +4,7 @@ from astrbot.api import logger
 from bs4 import BeautifulSoup
 import aiohttp
 import astrbot.api.message_components as Comp
+from astrbot.api.message_components import Node
 # import urllib
 from urllib.parse import quote
 
@@ -43,7 +44,11 @@ class UmaPlugins(Star):
                 for card in cards:
                     card_img = card.contents[0].contents[0]
                     chain.append(Comp.Image.fromURL(card_img.attrs.get("src")))
-        yield event.chain_result(chain)
+        if len(chain) == 0:
+            yield event.plain_result("查询技能失败  未找到该技能")
+        else:
+            node = Node(chain)
+            yield event.chain_result([node])
 
     async def terminate(self):
         """可选择实现异步的插件销毁方法，当插件被卸载/停用时会调用。"""
