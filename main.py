@@ -41,6 +41,9 @@ class UmaPlugins(Star):
                 web = await resp.content.read()
                 context = BeautifulSoup(web)
                 cards = context.find_all(style="position:relative;width:100px;margin:3px;")
+                skill_data = context.find(class_="wikitable")
+                skill_info = skill_data.find_all("td")
+                chain.append(Comp.Plain(text=f"类型={skill_info[2].string}代码={skill_info[5].string}描述={skill_info[6].string}数值={skill_info[8].string}时长={skill_info[9].string}"))
                 for card in cards:
                     card_img = card.contents[0].contents[0]
                     chain.append(Comp.Image.fromURL(card_img.attrs.get("src")))
