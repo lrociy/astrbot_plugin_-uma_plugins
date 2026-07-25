@@ -13,6 +13,23 @@ from astrbot.core.utils.session_waiter import (
 from urllib.parse import quote
 
 
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+    "Cache-Control": "no-cache",
+    "Sec-Ch-Ua": '"Chromium";v="125", "Microsoft Edge";v="125", "Not.A/Brand";v="24"',
+    "Sec-Ch-Ua-Mobile": "?0",
+    "Sec-Ch-Ua-Platform": '"Windows"',
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "none",
+    "Sec-Fetch-User": "?1",
+    "Upgrade-Insecure-Requests": "1"
+}
+
 class UmaPlugins(Star):
 	def __init__(self, context: Context):
 		super().__init__(context)
@@ -113,7 +130,7 @@ class UmaPlugins(Star):
 
 		async with aiohttp.ClientSession() as session:
 			data = {}
-			async with session.get(url, params=params, timeout=10) as resp:
+			async with session.get(url, params=params, headers=headers, timeout=10) as resp:
 				if resp.status != 200:
 					error_text = await resp.text()
 					logger.error(f"请求技能列表失败，状态码: {resp.status}, 错误信息: {error_text}")
