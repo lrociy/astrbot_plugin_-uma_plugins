@@ -114,8 +114,9 @@ class UmaPlugins(Star):
 		async with aiohttp.ClientSession() as session:
 			data = {}
 			async with session.get(url, params=params, timeout=10) as resp:
-				if resp.status == 567:
-					logger.warning(resp.content.read())
+				if resp.status != 200:
+					error_text = await resp.text()
+					logger.error(f"请求技能列表失败，状态码: {resp.status}, 错误信息: {error_text}")
 					return []
 				resp.raise_for_status()
 				data = await resp.json()
