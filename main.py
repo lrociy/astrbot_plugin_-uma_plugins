@@ -111,13 +111,14 @@ class UmaPlugins(Star):
 						await event.send(event.chain_result([node]))
 
 					controller.stop()
-			try:
-				await wait_for_selection(event)
-			except Exception as e:
-				logger.error(f"等待技能选择时发生错误: {e}")
-				yield event.plain_result("查询技能失败  未找到该技能")
-			finally:
-				event.stop_event()
+			await wait_for_selection(event)
+			# try:
+			# 	await wait_for_selection(event)
+			# except Exception as e:
+			# 	logger.error(f"等待技能选择时发生错误: {e}")
+			# 	yield event.plain_result("查询技能失败  未找到该技能")
+			# finally:
+			# 	event.stop_event()
 		else:
 			node = Node(chain)
 			yield event.chain_result([node])
