@@ -90,6 +90,7 @@ class UmaPlugins(Star):
 					skill_name = skill_list[int(idiom)]
 					chain = []
 					url = "https://wiki.biligame.com/umamusume/" + quote(f"简/{skill_name}")
+					logger.debug(f"查询技能url={url}")
 					async with aiohttp.ClientSession() as session:
 						async with session.get(url) as resp:
 							web = await resp.content.read()
@@ -97,7 +98,6 @@ class UmaPlugins(Star):
 							cards = context.find_all(style="position:relative;width:100px;margin:3px;")
 							skill_data = context.find(class_="wikitable")
 							skill_info = skill_data and skill_data.find_all("td")
-							logger.info(f"skill_data: {skill_data}, skill_info: {skill_info}")
 							chain.append(Comp.Plain(text=f"类型={skill_info[2].string}代码={skill_info[5].string}描述={skill_info[6].string}类型={skill_info[7].string}数值={skill_info[8].string}时长={skill_info[9].string}"))
 							for card in cards:
 								card_img = card.contents[0].contents[0]
