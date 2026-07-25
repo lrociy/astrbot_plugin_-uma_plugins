@@ -112,7 +112,8 @@ class UmaPlugins(Star):
 					controller.stop()
 			try:
 				await wait_for_selection(event)
-			except:
+			except Exception as e:
+				logger.error(f"查询技能时发生错误: {e}")
 				yield event.plain_result("查询技能失败  未找到该技能")
 			finally:
 				event.stop_event()
