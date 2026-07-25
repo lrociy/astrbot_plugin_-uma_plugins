@@ -60,7 +60,7 @@ class UmaPlugins(Star):
 		chain = []
 		url = "https://wiki.biligame.com/umamusume/" + quote(f"简/{skill_name}")
 		async with aiohttp.ClientSession() as session:
-			async with session.get(url) as resp:
+			async with session.get(url, headers=headers) as resp:
 				web = await resp.content.read()
 				context = BeautifulSoup(web)
 				cards = context.find_all(style="position:relative;width:100px;margin:3px;")
@@ -91,7 +91,7 @@ class UmaPlugins(Star):
 					chain = []
 					url = "https://wiki.biligame.com/umamusume/" + quote(f"简/{skill_name}")
 					async with aiohttp.ClientSession() as session:
-						async with session.get(url) as resp:
+						async with session.get(url, headers=headers) as resp:
 							web = await resp.content.read()
 							context = BeautifulSoup(web)
 							logger.debug(f"查询技能网页内容={context}")
