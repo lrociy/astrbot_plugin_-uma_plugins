@@ -86,6 +86,7 @@ class UmaPlugins(Star):
 			@session_waiter(timeout=60, record_history_chains=False)
 			async def wait_for_selection(controller: SessionController, event: AstrMessageEvent):
 				idiom = event.message_str
+				logger.info(f"用户选择了技能序号: {idiom}, skill_list: {skill_list}")
 				if idiom.isdigit() and 0 <= int(idiom) < len(skill_list):
 					skill_name = skill_list[int(idiom)]
 					chain = []
@@ -113,7 +114,7 @@ class UmaPlugins(Star):
 			try:
 				await wait_for_selection(event)
 			except Exception as e:
-				logger.error(f"查询技能时发生错误: {e}")
+				logger.error(f"等待技能选择时发生错误: {e}")
 				yield event.plain_result("查询技能失败  未找到该技能")
 			finally:
 				event.stop_event()
