@@ -86,7 +86,6 @@ class UmaPlugins(Star):
 			@session_waiter(timeout=60, record_history_chains=False)
 			async def wait_for_selection(controller: SessionController, event: AstrMessageEvent):
 				idiom = event.message_str
-				logger.info(f"用户选择了技能序号: {idiom}, skill_list: {skill_list}")
 				if idiom.isdigit() and 0 <= int(idiom) < len(skill_list):
 					skill_name = skill_list[int(idiom)]
 					chain = []
@@ -98,7 +97,7 @@ class UmaPlugins(Star):
 							cards = context.find_all(style="position:relative;width:100px;margin:3px;")
 							skill_data = context.find(class_="wikitable")
 							skill_info = skill_data and skill_data.find_all("td")
-							logger.info(f"skill_info: {skill_info}")
+							logger.info(f"skill_data: {skill_data}, skill_info: {skill_info}")
 							chain.append(Comp.Plain(text=f"类型={skill_info[2].string}代码={skill_info[5].string}描述={skill_info[6].string}类型={skill_info[7].string}数值={skill_info[8].string}时长={skill_info[9].string}"))
 							for card in cards:
 								card_img = card.contents[0].contents[0]
