@@ -14,7 +14,8 @@ from urllib.parse import quote
 
 
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+	"Cookie": "gamecenter_wiki_UserName=12142849; gamecenter_wiki__session=1fhve4lk1bkidm9bgeiqslbjjv5rkqg8; gamecenter_wiki_UserID=254622; gamecenter_wiki_UserGroups=bilibili; SESSDATA=01d9e7d4%2C1786726177%2C0e098%2A22CjD2bbGlRVL_acGJ-FoWCd-MH6HEahrQsTErQPzYp_V6Do51ziRMvqUESeXhubErPGoSVkdSTDl6c3M2UlhpNlU4UFdhYm1RZHVjUEQxX3BOUExRUnN5TGdUZzJMdjk4dVBzMWdBU2RmbzY3WmRUODA1QzE2MnhTaTZmMWtHaVp3QWRWUnBQV29RIIEC; bili_jct=53abd88452b0df97a70b31550d3406ba; DedeUserID=12142849; DedeUserID__ckMd5=5004403a40802b2e; sid=nhjzrh4z; b_nut=1771488904; buvid3=E1E2B94B-4981-7E5B-E54F-033D8ECE35A505033infoc; buvid_fp=2e934c22b42a6595436063c8f8d3e45b; Hm_lvt_e61bc5e4df128a1dc4db0bb30558ebe4=1773495587; Hm_lvt_cb50e488eca598646f26b3bf09b83ada=1784287919,1784287919; bsource=search_bing; buvid4=EE028B61-EAC4-F188-1CBB-22CF8DE03EB948648-026071821-zzY4myeXOxLljlBEzmLA8g%3D%3D; HMACCOUNT=10CE10543CD8E618; Hm_lpvt_cb50e488eca598646f26b3bf09b83ada=1785004851; b_lsid=5FE88482_19F9A9481D0",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
     "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
     "Accept-Encoding": "gzip, deflate, br",
