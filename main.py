@@ -1,6 +1,6 @@
 from astrbot.api.event import filter, AstrMessageEvent, MessageEventResult
 from astrbot.api.star import Context, Star, register
-from astrbot.api import logger
+from astrbot.api import logger, AstrBotConfig
 from bs4 import BeautifulSoup
 import aiohttp
 import astrbot.api.message_components as Comp
@@ -32,13 +32,15 @@ headers = {
 }
 
 class UmaPlugins(Star):
-	def __init__(self, context: Context):
+	def __init__(self, context: Context, config: AstrBotConfig):
 		super().__init__(context)
+		self.config = config
 		self.cur_select_keyworld = None
 
 	async def initialize(self):
 		"""可选择实现异步的插件初始化方法，当实例化该插件类之后会自动调用该方法。"""
 		logger.warning("测试插件启动!!!!!!!!")
+		headers["Cookie"] = self.config.get("cookie", "")
 
 	# 注册指令的装饰器。指令名为 helloworld。注册成功后，发送 `/helloworld` 就会触发这个指令，并回复 `你好, {user_name}!`
 	@filter.command("uma_test")
