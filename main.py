@@ -60,9 +60,9 @@ class UmaPlugins(Star):
 			skill_list = await self.get_skill_name_list(skill_name)
 			if len(skill_list) == 0:
 				yield event.plain_result("查询技能失败  未找到技能")
-			chain.append(Comp.Plain(text="未找到技能  可能是技能名不完整  下面是模糊匹配到的技能列表  输入序号查询对应技能\n"))
+			chain.append(Comp.Plain(text="未找到技能  可能是技能名不完整  下面是模糊匹配到的技能列表  输入序号查询对应技能"))
 			for index, skill in enumerate(skill_list):
-				chain.append(Comp.Plain(text=f"{index}. {skill}\n"))
+				chain.append(Comp.Plain(text=f"{index}. {skill}"))
 			yield event.chain_result([Node(chain)])
 
 			@session_waiter(timeout=60, record_history_chains=False)
@@ -78,7 +78,7 @@ class UmaPlugins(Star):
 							context = BeautifulSoup(web)
 							cards = context.find_all(style="position:relative;width:100px;margin:3px;")
 							skill_data = context.find(class_="wikitable")
-							skill_info = skill_data.find_all("td")
+							skill_info = skill_data and skill_data.find_all("td")
 							chain.append(Comp.Plain(text=f"类型={skill_info[2].string}代码={skill_info[5].string}描述={skill_info[6].string}类型={skill_info[7].string}数值={skill_info[8].string}时长={skill_info[9].string}"))
 							for card in cards:
 								card_img = card.contents[0].contents[0]
