@@ -114,6 +114,9 @@ class UmaPlugins(Star):
 		async with aiohttp.ClientSession() as session:
 			data = {}
 			async with session.get(url, params=params, timeout=10) as resp:
+				if resp.status == 567:
+					logger.warning(resp.content.read())
+					return []
 				resp.raise_for_status()
 				data = await resp.json()
 
